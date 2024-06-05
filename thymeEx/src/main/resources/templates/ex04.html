@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+       <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+       <head>
+           <meta charset="UTF-8">
+           <meta name="viewport" content="width=device-width, initial-scale=1.0">
+           <title>Document</title>
+		   <style>
+				.target{
+					background-color:  orange;
+				}
+				.notarget{
+					background-color: lightgray;
+				}
+		   </style>
+       </head>
+       <body>
+          <h1>EX04 page</h1>
+		  <hr>
+		 
+		  <h1 th:text="${result}"></h1>
+		  <h1 th:text="${dto}"></h1>
+		  
+		  <script th:inline="javascript">
+			const msg = [[${result}]];
+			const dto = [[${dto}]];
+		  </script>
+		  
+		  
+		  	
+	   </body>
+
+       </html>

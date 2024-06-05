@@ -1,0 +1,12 @@
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.article.dao.IMemberDao">
+<select id="findByUsername" resultType="com.example.article.dto.Member">
+	select * from member where username=#{username}
+</select>
+
+<insert id="reg">
+	insert into member values(#{member.username},#{member.password},'ROLE_JOURNALIST')
+</insert>
+</mapper>

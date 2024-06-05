@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+	<h1>ExLayout1 page</h1>
+	<hr>
+	
+	<div style="border: 1px solid blue">
+		<th:block th:replace="~{fragments/fragment2}"></th:block>
+	</div>
+	
+	
+	<h2>Layout1 - 1</h2>
+	<div th:replace="~{/fragments/fragment1 :: part1}"></div>
+	
+	<h2>Layout1 - 2</h2>
+	<div th:insert="~{/fragments/fragment1 :: part2}"></div>
+	
+	<h2>Layout1 - 3</h2>
+	<th:block th:replace="~{/fragments/fragment1 :: part3}"></th:block>
+	
+</body>
+
+</html>

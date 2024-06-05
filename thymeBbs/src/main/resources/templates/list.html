@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+
+<body>
+	<a href="writeForm">글작성하기</a>
+	
+	<table border="1">
+		<thead>
+			<tr>
+				<th>번호</th><th>제목</th><th>작성자</th><th>작성일자</th><th>삭제</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="dto : ${list}">
+				<td>[[${dto.bno}]]</td>
+				<td><a th:href="@{/detail(bno=${dto.bno})}">[[${dto.title}]]</a></td>
+				<td>[[${dto.writer}]]</td>
+				<td>[[${dto.regdate}]]</td>
+				<td><a th:href="@{/delete(bno=${dto.bno})}">삭제</a> </td>
+			</tr>
+		</tbody>
+		
+	</table>
+
+</body>
+
+</html>

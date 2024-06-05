@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobKorea</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        header {
+            background-color: #0073e6;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+        .search-bar {
+            margin: 20px;
+            text-align: center;
+        }
+        .search-bar input[type="text"] {
+            width: 300px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        .search-bar button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #0073e6;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .banner {
+            width: 100%;
+            height: 300px;
+            background: url('https://via.placeholder.com/1200x300') no-repeat center center;
+            background-size: cover;
+        }
+        .recommendations {
+            padding: 20px;
+        }
+        .job-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .job-item {
+            border: 1px solid #ddd;
+            padding: 20px;
+            width: 300px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>JobKorea</h1>
+    </header>
+    <div class="search-bar">
+        <input type="text" placeholder="채용 정보를 검색하세요">
+        <button>검색</button>
+    </div>
+    <div class="banner"></div>
+    <div class="recommendations">
+        <h2>추천 채용 정보</h2>
+        <div class="job-list">
+            <div class="job-item">
+                <h3>소프트웨어 엔지니어</h3>
+                <p>서울, 대한민국</p>
+                <p>경력 3년 이상</p>
+            </div>
+            <div class="job-item">
+                <h3>데이터 분석가</h3>
+                <p>서울, 대한민국</p>
+                <p>경력 2년 이상</p>
+            </div>
+            <div class="job-item">
+                <h3>웹 디자이너</h3>
+                <p>서울, 대한민국</p>
+                <p>신입 가능</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

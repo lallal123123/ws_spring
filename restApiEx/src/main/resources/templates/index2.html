@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Insert title here</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<script
+  src="https://code.jquery.com/jquery-3.7.1.js"
+  integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+  crossorigin="anonymous"></script>
+</head>
+<body>
+<div class=" container text-center">
+<div  class="row row-cols-2">
+<div  class="col">
+<h2>메모 저장하기</h2>
+<input type="text" name="title" placeholder="Input title...."><br>
+<input type="text" name="content" placeholder="Input content...."><br>
+<input type="text" name="writer" placeholder="Input writer...."><br>
+<button onclick= "postMemo()">Memo 저장하기 </button>
+<div id="result_post"></div><hr>
+</div>
+
+
+<div  class="col">
+<h2>메모 조회하기</h2>
+<input type="text" name="mno" placeholder="Input mno...."><br>
+<button onclick= "getMemo()">Memo 조회하기 </button>
+<div id="result_get"></div><hr>
+</div>
+
+<div  class="col">
+<h2>메모 수정하기</h2>
+<input type="text" name="mno2" placeholder="Input mno...."><br>
+<input type="text" name="title2" placeholder="Input title...."><br>
+<input type="text" name="content2" placeholder="Input content...."><br>
+<input type="text" name="writer2" placeholder="Input writer...."><br>
+<button onclick= "putMemo()">Memo 수정하기 </button>
+<div id="result_put"></div><hr>
+</div>
+
+
+<div  class="col">
+<h2>메모 삭제하기</h2>
+<input type="text" name="mno3" placeholder="Input mno...."><br>
+<button onclick= "deleteMemo()">Memo 삭제하기 </button>
+<div id="result_delete"></div>
+</div>
+</div>
+</div>
+<script>
+function postMemo() {
+	
+	const title_ = $("input[name='title']");
+	const content_ = $('input[name="content"]');
+	const writer_ = $('input[name="writer"]');
+	const memo ={
+			title : title_.val(),
+			content : content_.val(),
+			writer : writer_.val()
+	};
+	
+	
+
+	$.ajax({
+		url : "/memoapp/memo",//서버의 엔드포인트 URL
+		type : "post",//Http 메소드 타입
+		contentType : "application/json",//전송할 데이터의 형식 - 여기서는 json
+		data : JSON.stringify(memo),// 전송할 데이터
+		success : function(response) {
+			console.log(response);
+			const result = response;
+			$("#result_post").html(result.title);
+		},//성공적으로 완료되었을 때 서버가 보내온 메시지 처리
+		error : function() {
+			console.log("실패했어요.");
+		} //실패했을때 실행될 코드
+
+	});
+}
+
+function getMemo(){
+	//DB에서 검색할 때 사용할 텍스트박스
+	const mno_ = $("input[name='mno']");
+	//수정하기 위해 필요한 입력양식 식별하기(여기에 응답을 집어넣음)
+	const mno2_ =$("input[name='mno2']");
+	const title_ = $("input[name='title2']");
+	const content_ = $("input[name='content2']");
+	const writer_ = $("input[name='writer2']");
+	const xhttp = new XMLHttpRequest();
+	$.ajax({
+		url : "/memoapp/memo?mno="+ mno_.val(), //서버의 엔드포인트 URL
+		type : "get",//Http 메소드 타입
+		//contentType : "application/json", //전송할 데이터의 형식 - 여기서는 json
+		//data : ,// 전송할 데이터
+		success : function(response) {
+			console.log(response);
+			const obj = response;
+			mno2_.val(obj.mno);
+			title_.val(obj.title);
+			content_.val(obj.content);
+			writer_.val(obj.writer);
+			
+			$("#result_get").html(obj.title);
+			
+		},//성공적으로 완료되었을 때 서버가 보내온 메시지 처리
+		error : function() {
+			console.log("실패했어요.");
+		} //실패했을때 실행될 코드
+
+	});
+	
+		
+		
+	
+	
+	xhttp.open("get", "/memoapp/memo?mno=" + mno_.value, true);
+	//xhttp.setRequestHeader("Content-type", "application/json");
+	xhttp.send();
+}
+function putMemo(){
+	//입력 양식에 적힌 데이터 가져오기
+	const mno_ = $("input[name='mno2']");
+	const title_ = $("input[name='title2']");
+	const content_ = $("input[name='content2']");
+	const writer_ = $("input[name='writer2']");
+	//가져온 입력데이터를 객체로 만들기 -->JSON으로 변경하여 서버에 전송하기 위해서.
+	const memo={
+			mno : mno_.val(),
+			title : title_.val(),
+			content : content_.val(),
+			writer : writer_.val()
+	}
+	//객체를 JSON으로 변경하기
+	const sendData = JSON.stringify(memo);	
+	const xhttp = new XMLHttpRequest();
+	$.ajax({
+		url : "/memoapp/memo", //서버의 엔드포인트 URL
+		type : "put",//Http 메소드 타입
+		contentType : "application/json", //전송할 데이터의 형식 - 여기서는 json
+		data : sendData, // 전송할 데이터
+		success : function(response) {
+			console.log(response);
+			const obj = response;
+			mno2_.val(obj.mno);
+			title_.val(obj.title);
+			content_.val(obj.content);
+			writer_.val(obj.writer);
+			
+			$("#result_put").html(obj);
+			
+		},//성공적으로 완료되었을 때 서버가 보내온 메시지 처리
+		error : function() {
+			console.log("실패했어요.");
+		} //실패했을때 실행될 코드
+
+	});
+}
+function deleteMemo(){
+	const mno_ = $("input[name='mno3']");
+	
+	const xhttp = new XMLHttpRequest();
+	$.ajax({
+		url : "/memoapp/memo/" + mno_.val(), //서버의 엔드포인트 URL
+		type : "delete",//Http 메소드 타입
+		//contentType : "application/json", //전송할 데이터의 형식 - 여기서는 json
+		//data : sendData, // 전송할 데이터
+		success : function(response) {
+			console.log(response);
+			const obj = response;
+			$("#result_delete").html(obj);
+			
+		},//성공적으로 완료되었을 때 서버가 보내온 메시지 처리
+		error : function() {
+			console.log("실패했어요.");
+		} //실패했을때 실행될 코드
+
+	});
+	
+}
+
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+
+</body>
+</html>

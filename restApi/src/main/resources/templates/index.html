@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>index page</h1>
+	<hr>
+	<button id="get" onclick="getData()">Get 요청(파라미터 없음)</button>
+	<div id="demo_get"></div>
+
+	<button id="get2" onclick="getData2()">Get 요청2</button>
+	<div id="demo_get2"></div>
+
+	<button id="get3" onclick="getData3()">Get 요청3(파라미터 있음 -3개
+		MemberDto(name,email,addr))</button>
+	<div id="demo_get3"></div>
+
+	<hr>
+
+	<button id="post0" onclick="postData0()">Post0 요청(form)</button>
+	<div id="demo_post0"></div>
+	<button id="post" onclick="postData()">Post 요청(Map)</button>
+	<div id="demo_post"></div>
+
+	<button id="post2" onclick="postData2()">Post2 요청3(Json))</button>
+	<div id="demo_post2"></div>
+
+	<button id="get4" onclick="getData4()">Get 요청4(db 데이터 요청 1명만)</button>
+	<div id="demo_getdb"></div>
+	<button id="postSave" onclick="postSave()">post 요청(db 데이터 저장)</button>
+	<div id="demo_savedb"></div>
+	<button id="delete" onclick="deleteMember()">delete 요청(db 데이터
+		삭제)</button>
+	<div id="demo_delete"></div>
+	<button id="getList" onclick="getList()">Get 요청(디비에 멤버리스트)</button>
+	<div id="demo_getList"></div>
+
+	<script>
+		function getData() {
+			const xhttp = new XMLHttpRequest();
+			xhttp.onload = function() {
+				document.getElementById("demo_get").innerHTML = this.responseText;
+			}
+			xhttp.open("GET", "/api/v1/get-api/hello", true);
+			xhttp.send();
+		}
+		function getData2() {
+			const xhttp = new XMLHttpRequest();
+			xhttp.onload = function() {
+				document.getElementById("demo_get2").innerHTML = this.responseText;
+			}
+			xhttp.open("GET", "/api/v1/get-api/variable1/123", true);
+			xhttp.send();
+		}
+		function getData3() {
+			const xhttp = new XMLHttpRequest();
+			xhttp.onload = function() {
+				document.getElementById("demo_get3").innerHTML = this.responseText;
+			}
+			xhttp
+					.open(
+							"GET",
+							"/api/v1/get-api/request3?name=홍길동&email=aaa@naver.com&addr=부산",
+							true);
+			xhttp.send();
+		}
+
+		function postData0() {
+			const xhttp = new XMLHttpRequest();
+			xhttp.onload = function() {
+				document.getElementById("demo_post0").innerHTML = this.responseText;
+			}
+			xhttp.open("post", "/api/v1/post-api/member0");
+			xhttp.setRequestHeader("Content-type",
+					"application/x-www-form-urlencoded");
+			xhttp.send("name=홍길동&email=aaa@naver.com&addr=부산");
+		}
+		function postData() {
+			const xhttp = new XMLHttpRequest();
+			xhttp.onload = function() {
+				document.getElementById("demo_post").innerHTML = this.responseText;
+			}
+			xhttp.open("post", "/api/v1/post-api/member", true);
+			xhttp.setRequestHeader("Content-type", "application/json");
+			xhttp
+					.send('{"name" : "James", "email" : "james@naver.com", "addr" : "Busan"}');
+		}
+
+		function postData2() {
+			const xhttp = new XMLHttpRequest();
+			xhttp.onload = function() {
+				document.getElementById("demo_post2").innerHTML = this.responseText;
+			}
+			xhttp.open("post", "/api/v1/post-api/member2", true);
+			xhttp.setRequestHeader("Content-type", "application/json");
+			xhttp
+					.send('{"name" : "James", "email" : "james@naver.com", "addr" : "Busan"}');
+		}
+
+		function getData4() {
+			const xhttp = new XMLHttpRequest();
+			xhttp.onload = function() {
+				document.getElementById("demo_getdb").innerHTML = this.responseText;
+			}
+			xhttp.open("GET", "/api/v1/member/5", true);
+			xhttp.send();
+		}
+
+		function postSave() {
+			const xhttp = new XMLHttpRequest();
+			xhttp.onload = function() {
+				document.getElementById("demo_savedb").innerHTML = this.responseText;
+			}
+			xhttp.open("post", "/api/v1/get-api/member", true);
+			xhttp.setRequestHeader("Content-type",
+					"application/x-www-form-urlencoded");
+			xhttp.send("name=James&email=james@naver.com&addr=Busan");
+		}
+		function deleteMember() {
+			const xhttp = new XMLHttpRequest();
+			xhttp.onload = function() {
+				document.getElementById("demo_delete").innerHTML = this.responseText;
+			}
+			xhttp.open("delete", "/api/v1/member", true);
+			xhttp.setRequestHeader("Content-type",
+					"application/x-www-form-urlencoded");
+			xhttp.send("mno=4");
+		}
+		function getList() {
+			const xhttp = new XMLHttpRequest();
+			xhttp.onload = function() {
+				document.getElementById("demo_getList").innerHTML = this.responseText;
+			}
+			xhttp.open("GET", "/api/v1/member", true);
+			xhttp.send();
+		}
+	</script>
+
+
+
+
+
+
+	<form name="frm">
+	<input type="hidden" name="mno" value="5"><br>
+	<input type="text" name="name"><br>
+	<input type="text" name="addr"><br>
+	<input type="text" name="email">
+	<button onclick="update()">수정</button>
+	<div id ="demo_update"></div>
+	<script>
+	function update() {
+		var formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                addr: document.getElementById('addr').value
+            };
+		const xhttp = new XMLHttpRequest();
+		xhttp.onload = function() {
+			document.getElementById("demo_update").innerHTML = this.responseText;
+		}
+		xhttp.open("put", "/api/v1/get-api/member/5", true);
+		xhttp.setRequestHeader("Content-type",
+				"application/x-www-form-urlencoded");
+		xhttp.send();
+	}
+	</script>
+	
+	</form>
+</body>
+</html>

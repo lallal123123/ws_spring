@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>articleWriteForm page</h1>
+	<form action="/journalist/articleWrite" method="post" onsubmit="return submitCheck()"  enctype="multipart/form-data">
+		제목 : <input type="text" name="title" placeholder="input title...">
+		기사내용 : <textarea name="content"></textarea>
+		첨부사진 :  <input type="file" name="img">
+		<input type="submit" value="제출">
+	</form>
+
+	<script>
+		
+		
+		function submitCheck() {
+			const title = document.querySelector("input[name = 'title']");
+			const content = document.querySelector("textarea");
+			if (title.value.trim() =="" || content.value.trim() =="") {
+				alert("기사제목 또는 기사내용이 없습니다.확인해주세요");
+				return false;
+			} 
+			return true;
+		}
+	</script>
+
+
+
+</body>
+</html>

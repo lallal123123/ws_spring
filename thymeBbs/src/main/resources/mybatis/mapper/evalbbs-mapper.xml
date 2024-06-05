@@ -1,0 +1,22 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.green.thymeBbs.dao.IEvalBbsDao">
+	<select id="list" resultType="com.green.thymeBbs.dto.EvalBbsDto">
+		select * from evalbbs
+	</select>
+	
+	<select id="detail" resultType="com.green.thymeBbs.dto.EvalBbsDto">
+		select * from evalbbs where bno=#{bno}
+	</select>
+	<insert id="write">
+		insert into evalbbs values(null,#{dto.title},#{dto.content},#{dto.writer},now())
+	</insert>
+	
+	<delete id="delete">
+		delete from evalbbs where bno=#{bno}
+	</delete>
+	
+		
+	</mapper>

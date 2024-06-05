@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th = "http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div>
+	<form action="/registProc" method="post">
+	<!-- <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">  SecurityConfig에 http.csrf(AbstractHttpConfigurer::disable); 추가-->
+	<input type="text" name="username" placeholder="input id..."><br>
+	<input type="password" name="password" placeholder="input password..."><br>
+	<input type="text" name="name" placeholder="input name..."><br>
+	<input type="submit" value="회원등록"><br>
+	</form>
+</div>
+
+</body>
+</html>

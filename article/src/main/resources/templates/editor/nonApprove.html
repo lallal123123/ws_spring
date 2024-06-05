@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>nonApprove page</h1>
+	
+	<table>
+  <tr>
+    <th>제목</th>
+    <th>작성자</th>
+    <th>작성일자</th>
+  </tr>
+  
+  <tr th:each="dto:${articleList}">
+    <td th:text="${dto.title}"></td>
+    <td><a th:href="@{/detail(ano=${dto.ano})}" th:text="${dto.username}"></a></td>
+    <td th:text="${dto.writeDate}"></td>
+  </tr>
+</table>
+
+	
+
+	
+
+
+
+</body>
+</html>

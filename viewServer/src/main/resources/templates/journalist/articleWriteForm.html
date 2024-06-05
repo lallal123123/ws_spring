@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>articleWriteForm page</h1>
+
+ <form id="articleForm" enctype="multipart/form-data">
+	제목 :
+	<input type="text" name="title" placeholder="input title...">
+	기사내용 :
+	<textarea name="content"></textarea>
+	첨부사진 :
+	<input type="file" name="img">
+	<input type="hidden" name="username" th:value="${username}">
+	<input type="submit" value="제출" onclick="submitcheck(event)">
+	<div id="resultBox"></div>
+</form>
+
+	<script>
+		function submitcheck(e) {
+			e.preventDefault();
+			const title = document.querySelector("input[name = 'title']");
+			const content = document.querySelector("textarea");
+			if (title.value.trim() == "" || content.value.trim() == "") {
+				alert("기사제목 또는 기사내용이 없습니다.확인해주세요");
+
+			} else {
+				submit();
+			}
+
+		}
+		function submit() {
+			/*
+			const title_ = document.querySelector("input[name = 'title']");
+			const content_ = document.querySelector("textarea");
+			const img_ = document.querySelector("input[name = 'file']");
+			const username_ = document.querySelector("input[name = 'username']");
+
+			const article = {
+				title : title_.value,
+				content : content_.value,
+				img : img_.value,
+				username : username_.value
+			}
+			*/
+            const form = document.getElementById("articleForm");
+			const formData = new FormData(form);
+			//const sendData = JSON.stringify(article);
+			const xhttp = new XMLHttpRequest();
+			xhttp.onload = function() {
+				document.getElementById("resultBox").innerHTML = this.responseText;
+			}
+			xhttp.open("post", "http://localhost:8098/api/article", true);
+			xhttp.setRequestHeader("Content-type", "application/json");
+			xhttp.send(formData);
+
+		}
+	</script>
+
+
+
+</body>
+</html>

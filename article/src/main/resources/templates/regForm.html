@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>regForm page</h1>
+	<form action="reg" method="post" onsubmit="return submitCheck()">
+		username : <input type="text" name="username"
+			placeholder="input username..." required>
+		<button onclick="idCheck(event)">중복여부</button>
+		<div id="idBox"></div>
+		<br> password : <input type="password" name="password"
+			id="password1" palceholder="input password..." required> password확인 <input
+			type="password" palceholder="input password..." id="password2"
+			oninput="passwordCheck()" required>
+		<div id="pwBox"></div>
+		<input type="submit" value="제출">
+	</form>
+
+	<script>
+		function idCheck(e) {
+			e.preventDefault();
+			const username_ = document.querySelector("input[name='username']");
+			const xhttp = new XMLHttpRequest();
+			xhttp.onload = function() {
+				document.getElementById("idBox").innerHTML = this.responseText;
+			}
+			xhttp.open("get", "/api/member?username=" + username_.value, true);
+			//xhttp.setRequestHeader("Content-type", "application/json");	
+
+			xhttp.send(); //json 형식으로 직접 적거나(왼쪽에 해당) 밑에 처럼 스크립트에서 객체로 만든후 JSON.stringify(formData)로 넘겨준다. 보내는 데이터
+		}
+		function passwordCheck() {
+
+			const pw1 = document.querySelector("#password1");
+			const pw2 = document.querySelector("#password2");
+			let msg = "";
+			if (pw1.value == pw2.value) {
+				msg = "비밀번호가 일치합니다.";
+			} else {
+				msg = "비밀번호가 일치하지 않습니다.";
+			}
+			document.querySelector("#pwBox").innerHTML = msg;
+		}
+		function submitCheck() {
+			const pw = document.querySelector("#pwBox");
+			const id = document.querySelector("#idBox");
+			if (pw.innerHTML == "비밀번호가 일치합니다."
+					&& id.innerHTML == "사용가능한 아이디 입니다.") {
+				return true;
+			} else if (pw.innerHTML == "비밀번호가 일치하지 않습니다.") {
+				alert("비밀번호가 일치하지 않습니다. 확인바랍니다.");
+				return false;
+			} else if (id.innerHTML == "중복된 아이디입니다.") {
+				alert("중복된 아이디입니다. 확인바랍니다.");
+				return false;
+			}
+		}
+	</script>
+
+
+
+</body>
+</html>

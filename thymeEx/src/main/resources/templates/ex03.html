@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+       <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+       <head>
+           <meta charset="UTF-8">
+           <meta name="viewport" content="width=device-width, initial-scale=1.0">
+           <title>Document</title>
+       </head>
+       <body>
+          <h1>EX03-List page</h1>
+		  <hr>
+		  <table border="1">
+			<thead>
+				<tr>
+					<th>번호</th><th>이름</th><th>나이</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="dto,status : ${list}" th:if="${status.count % 2 ==0}">
+					<td>[[${status.count}]]</td>
+					<td>[[${dto.name}]]</td>
+					<td>[[${dto.age}]]</td>
+				</tr>
+			</tbody>
+			
+		  </table>
+       </body>
+
+       </html>

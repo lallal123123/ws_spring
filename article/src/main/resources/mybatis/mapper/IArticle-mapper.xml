@@ -1,0 +1,20 @@
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.article.dao.IArticleDao">
+<select id="list" resultType="com.example.article.dto.Article">
+	select * from article 
+</select>
+
+<insert id="insert">
+	insert into article 
+	values(null,#{dto.title},default,null,null,#{dto.username},#{dto.content},#{dto.img},default)
+</insert>
+<select id="findAllByApprove" resultType="com.example.article.dto.Article">
+	select * from article where approve = #{approve}
+</select>
+<select id="detail" resultType="com.example.article.dto.Article">
+	select * from article where ano = #{id}
+</select>
+
+</mapper>

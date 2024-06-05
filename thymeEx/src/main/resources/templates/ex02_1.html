@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+       <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+       <head>
+           <meta charset="UTF-8">
+           <meta name="viewport" content="width=device-width, initial-scale=1.0">
+           <title>Document</title>
+       </head>
+       <body>
+          <h1>EX02_1-List page(3항 연산자)</h1>
+		  <hr>
+		  <ul>
+			<th:block th:each="dto, status : ${list}">
+				<li  th:text="${status.count % 2 ==0}?${dto.name}:${dto.age}">
+				</li>
+			</th:block>
+		  </ul>
+       </body>
+
+       </html>

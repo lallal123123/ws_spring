@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>index page</h1>
+<button id ="findById" onclick="findById()">5번회원찾기</button>
+<div id="demo_findById"></div>
+<script>
+function findById() {
+	  const xhttp = new XMLHttpRequest();
+	  xhttp.onload = function() {
+	    document.getElementById("demo_findById").innerHTML = this.responseText;
+	    }
+	  xhttp.open("GET", "http://localhost:8092/api/v1/member/5", true);
+	  xhttp.send();
+	}
+</script>
+
+</body>
+</html>
