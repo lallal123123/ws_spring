@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+</head>
+<body>
+<h1>regist board form</h1>
+<hr>
+<div>
+	<form name ="frm" >
+		<input type="text" name="title" placeholder="input title...."><br>
+		<input type="text" name="content" placeholder="input content...."><br>
+		<input type="text" name="writer" placeholder="input writer...."><br>
+		<input type="file" name="file"><br>
+		<input type="submit" value="게시물 등록" onclick="submitForm(event)">
+	</form>
+</div>
+<div id="demo"></div>
+
+<script>
+	function submitForm(event){
+		event.preventDefault();
+		alert("submit....");
+		
+		var form = document.forms['frm'];
+		var formData = new FormData(form);
+		
+		$.ajax({
+			type: "POST",
+			url: "http://localhost:9001/member/regBoardProc",
+			enctype:"multipart/form-data",
+			data: formData,
+			dataType: "text",
+			 contentType: false, // FormData를 사용할 때는 false로 설정
+	            processData: false, // FormData를 사용할 때는 false로 설정
+	            cache: false,
+			success: function(data){
+				console.log(data);
+				$("#demo").html(data);
+			},
+			error: function(){
+				console.log("에러발생");
+			}
+		
+		});
+	}
+	
+</script>
+</body>
+</html>
