@@ -36,6 +36,14 @@ dependencies {
 	testImplementation 'org.springframework.security:spring-security-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
+	//JWT 의존성 주입
+	implementation 'io.jsonwebtoken:jjwt-api:0.12.3'
+    implementation 'io.jsonwebtoken:jjwt-impl:0.12.3'
+    implementation 'io.jsonwebtoken:jjwt-jackson:0.12.3'
+    //compileOnly 'io.jsonwebtoken:jjwt-api:0.12.3'
+    //runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.3'
+    //runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.3'
+
 	//thumbnail 의존성 주입
 	implementation 'net.coobird:thumbnailator:0.4.20'
 }

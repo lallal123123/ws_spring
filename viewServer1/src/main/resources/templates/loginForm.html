@@ -17,6 +17,10 @@
 	</form>
 </div>
 <div id="demo"></div>
+
+<hr>
+<button onclick="requestAdmin()">Admin Page요청하기</button>
+<div id="demo2"></div>
 <script>
 	function submitForm(event){
 		event.preventDefault();
@@ -30,14 +34,41 @@
 			url: "http://localhost:9001/loginProc",
 			data: formData,
 			dataType:"text",//서버가 보내주는 데이터의 타입 
-			success: function(data){
-				console.log(data);
-				$("#demo").html(data);
+			success: function(data, status, xhr) {
+					console.log("success : ", data);
+					var headers = xhr.getAllResponseHeaders();
+					console.log(headers);
+					
+					var token = xhr.getResponseHeader("Authorization");
+					console.log("JWT Token: " + token.split(" ")[1]);
+					document.getElementById("demo").innerHTML = token.split(" ")[1];
+					
+					localStorage.setItem("jwtToken", token.split(" ")[1]);
 			},
 			error: function(){
 				console.log("에러발생");
 			}
 		
+		});
+	}
+	function requestAdmin(){
+		const token = localStorage.getItem("jwtToken");
+
+		$.ajax({
+		    type: "GET",
+		    url: "http://localhost:8888/admin",
+		    headers: {
+		        "Authorization": "Bearer " + token // Bearer 토큰 형식을 사용하여 토큰을 포함
+		    },										//Bearer을 쓰고 꼭 한칸 띄우기??
+		    success: function(data) {
+		        console.log("Success:", data);
+		        // 사용자 프로필 등을 처리
+		        document.getElementById("demo2").innerHTML = data;
+		    },
+		    error: function() {
+		        console.log("Error가 났어요");
+		        // 인증 실패 등의 오류 처리
+		    }
 		});
 	}
 	
