@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>regForm</h1>
+
+<form  id="frm">
+<input type="text" name="username" placeholder="username...."><br>
+<input type="text" name="password" placeholder="password..."><br>
+<input type="text" name="name" placeholder="name...."><br>
+<input type="hidden" name="role" value="ROLE_Member"><br>
+<input type="button" onclick = "reg()" value="등록">
+</form>
+<div id="result_post"></div>
+<script>
+function reg(){
+	let frm = document.querySelector("#frm");
+	let data={
+			"username" : frm.username.value,
+			"password" : frm.password.value,
+			"name" : frm.name.value,
+			"role" : frm.role.value,
+	}
+	let sendData = JSON.stringify(data);
+	const xhttp = new XMLHttpRequest();
+	xhttp.onload = function() {	//서버가 등록처리 후 결과 데이터를 보내주면 reponseText로 받는다.
+		document.getElementById("result_post").innerHTML = this.responseText;
+	}
+	xhttp.open("post", "http://localhost:8080/api/member", true);
+	xhttp.setRequestHeader("Content-type", "application/json");
+	xhttp.send(sendData);
+	
+	
+}
+
+</script>
+</body>
+</html>

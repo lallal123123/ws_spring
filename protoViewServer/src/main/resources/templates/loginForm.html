@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>login page</h1>
+
+
+<form  id="frm">
+<input type="text" name="username" placeholder="username...."><br>
+<input type="text" name="password" placeholder="password..."><br>
+
+<input type="button" onclick = "login()" value="등록">
+
+</form>
+<div id="result_get"></div>
+<script>
+function login(){
+	let frm = document.querySelector("#frm");
+	
+	
+	const xhttp = new XMLHttpRequest();
+	xhttp.onload = function() {	//서버가 등록처리 후 결과 데이터를 보내주면 reponseText로 받는다.
+		 let member =JSON.parse(this.responseText);
+		document.getElementById("result_get").innerHTML = this.responseText;
+		if(member.password == frm.password.value){
+			location.href="mypage/"+member.username;
+		}else{
+			alert(member.password);
+		}
+	}
+	xhttp.open("get", "http://localhost:8080/api/member/"+frm.username.value, true);
+	//xhttp.setRequestHeader("Content-type", "application/json");
+	xhttp.send();
+	
+	
+}
+</script>
+</body>
+</html>

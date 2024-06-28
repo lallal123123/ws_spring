@@ -38,8 +38,10 @@
 					console.log("success : ", data);
 					var headers = xhr.getAllResponseHeaders();
 					console.log(headers);
+			
 					
 					var token = xhr.getResponseHeader("Authorization");
+					alert(token);
 					console.log("JWT Token: " + token.split(" ")[1]);
 					document.getElementById("demo").innerHTML = token.split(" ")[1];
 					
@@ -62,6 +64,7 @@
 		    },										//Bearer을 쓰고 꼭 한칸 띄우기??
 		    success: function(data) {
 		        console.log("Success:", data);
+		       
 		        // 사용자 프로필 등을 처리
 		        document.getElementById("demo2").innerHTML = data;
 		    },
